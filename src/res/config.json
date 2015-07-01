@@ -1,0 +1,9 @@
+{
+   "categories":[
+        {"name":"no category", "filter":"no category"},
+        {"name":"versandhäuser", "filter":"amazon;otto"}, 
+        {"name":"gehalt", "filter":"gehalt1;gehalt2"},
+        {"name":"handy", "filter":"e-plus;congstar"},
+        {"name":"essen", "filter":"rewe;aldi;lidl"}
+    ]
+}
