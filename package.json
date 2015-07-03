@@ -1,7 +1,7 @@
 {
-  "name": "phonegame",
+  "name": "webpocketmoney",
   "version": "0.1.0",
-  "description": "phonegame: phonegame",
+  "description": "webpocketmoney",
   "author": "",
   "license": "MIT",
   "devDependencies": {
@@ -19,7 +19,7 @@
     "gulp-clean": "~0.3.1"
   },
   "scripts": {
-    "start": "npm start",
+    "start": "gulp",
     "build": "gulp build"
   },
   "jest": {
