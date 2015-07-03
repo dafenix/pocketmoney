@@ -19,7 +19,7 @@
     "gulp-clean": "~0.3.1"
   },
   "scripts": {
-    "start": "gulp",
+    "start": "npm start",
     "build": "gulp build"
   },
   "jest": {
