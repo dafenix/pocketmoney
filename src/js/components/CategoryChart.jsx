@@ -15,7 +15,7 @@ var TableDataSet = ReactBsTable.TableDataSet;
 var CategoryChart = React.createClass({
 	getInitialState: function() {
 		return {
-			'chartData' : [],
+			'chartData' : [{}],
 			'positions' : [],
 			'showTableContent' : false
 		};
@@ -92,7 +92,7 @@ var CategoryChart = React.createClass({
 	componentWillReceiveProps: function(nextProps){
 		this.calculateSum(nextProps);
 		this.renderDemoPieIfNeeded(nextProps);
-		console.log('props rec');
+		console.log('props recxx');
 	},
 	render: function() {
 		var header = this.props.type === 'e' ? 'Einnahmen' : 'Ausgaben';
@@ -101,7 +101,7 @@ var CategoryChart = React.createClass({
 			return (<li key={item.label}><Label  style={css}><Glyphicon glyph='tags' /> {item.label} ({item.value})</Label></li>);
 		});
 		var tableContent;
-
+		var options = { 'animation' : false};
 		if (this.state.showTableContent)
 		{
 			tableContent = { visibility: 'visible'};
@@ -109,14 +109,13 @@ var CategoryChart = React.createClass({
 		else {
 			tableContent = { visibility: 'collapse'};
 		}
-		var options = [ { animation : false } ];
 		return (
 			<Grid>
 				<Row>
 					<Col xs={3} className="pie">
 						<div>
 							<h2>{header}</h2>
-							<PieChart options={options} ref="pie" onClick={this.pieClicked} data={this.state.chartData} redraw />
+							<PieChart ref="pie" onClick={this.pieClicked} data={this.state.chartData} redraw options={options} />
 						</div>
 					</Col>
 					<Col xs={3} className="pieCategories">
