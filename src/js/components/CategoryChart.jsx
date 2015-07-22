@@ -11,6 +11,7 @@ var ReactBsTable = require("react-bootstrap-table");
 var BootstrapTable = ReactBsTable.BootstrapTable;
 var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 var TableDataSet = ReactBsTable.TableDataSet;
+var Please = require('pleasejs');
 
 var CategoryChart = React.createClass({
 	getInitialState: function() {
@@ -61,14 +62,20 @@ var CategoryChart = React.createClass({
 		}).value();
 
 		var chartData = [];
+		var colors = Please.make_color({
+			colors_returned: summen.length //set number of colors returned
+		});
+		console.log('c',colors);
+		var i = 0;
 		_.forEach(summen,function(item){
 			if (item !== undefined)
 			{
 				chartData.push({
 					'value' : item.amount,
 					'label' : item.category,
-					'color' :'#'+Math.floor(Math.random()*16777215).toString(16)
+					'color' : colors[i]
 				});
+				i++;
 			}
 		});
 		this.setState({ 'chartData' : chartData});
@@ -125,7 +132,7 @@ var CategoryChart = React.createClass({
 					</Col>
 				</Row>
 				<Row>
-					<Col xs={3}>
+					<Col xs={6}>
 						<ChartTable positions={this.state.positions}/>
 					</Col>
 				</Row>
