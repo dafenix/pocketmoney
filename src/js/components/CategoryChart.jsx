@@ -26,7 +26,7 @@ var CategoryChart = React.createClass({
                 var found = _.find(splitted,function(fItem){
                     return (item.name.toLowerCase().indexOf(fItem.toLowerCase()) !== -1);
                 });
-                return found !== undefined; 
+                return found !== undefined;
         });
         if (foundCategory !== undefined)
         {
@@ -61,8 +61,8 @@ var CategoryChart = React.createClass({
                 chartData.push({
                     'value' : item.amount,
                     'label' : item.category,
-                    'color' :'#'+Math.floor(Math.random()*16777215).toString(16)
-                });    
+										'color' :'#'+Math.floor(Math.random()*16777215).toString(16)
+                });
             }
         });
         this.setState({ 'chartData' : chartData});
@@ -104,7 +104,7 @@ var CategoryChart = React.createClass({
                     </Col>
                     <Col xs={3} className="pieCategories">
                         <ul className="list-inline">
-                            {legendItems}                        
+                            {legendItems}
                         </ul>
                     </Col>
                 </Row>
@@ -114,4 +114,3 @@ var CategoryChart = React.createClass({
 });
 
 module.exports = CategoryChart;
-
