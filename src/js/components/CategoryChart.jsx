@@ -99,7 +99,7 @@ var CategoryChart = React.createClass({
                     <Col xs={3} className="pie">
                         <div>
                             <h2>{header}</h2>
-                            <PieChart data={this.state.chartData} redraw />
+                            <PieChart ref="pie" onClick={this.pieClicked} data={this.state.chartData} redraw />
                         </div>
                     </Col>
                     <Col xs={3} className="pieCategories">
@@ -110,6 +110,10 @@ var CategoryChart = React.createClass({
                 </Row>
             </Grid>
 		);
+	},
+	pieClicked : function(event){
+		var chart = this.refs.pie.getChart();
+		console.log('pie clicked',(chart.getSegmentsAtEvent(event)[0]).label);
 	}
 });
 
