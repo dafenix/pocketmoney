@@ -6,114 +6,141 @@ var Row = require('react-bootstrap/Row');
 var Col = require('react-bootstrap/Col');
 var Label = require('react-bootstrap/Label');
 var Glyphicon = require('react-bootstrap/Glyphicon');
-
+var ChartTable = require('./ChartTable.jsx');
+var ReactBsTable = require("react-bootstrap-table");
+var BootstrapTable = ReactBsTable.BootstrapTable;
+var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
+var TableDataSet = ReactBsTable.TableDataSet;
 
 var CategoryChart = React.createClass({
 	getInitialState: function() {
-        return {
-           'chartData' : []
-        };
-    },
+		return {
+			'chartData' : [],
+			'positions' : [],
+			'showTableContent' : false
+		};
+	},
 	componentDidMount: function() {
 	},
-    filterChartMode: function(item) {
-        return (this.props.type === 'e' && (item.value) > 0) ||
-               (this.props.type === 'a' && (item.value) < 0);
-    },
-    setMatchingCategory: function(item) {
-        var foundCategory = _.find(this.props.categories, function(category){
-            var splitted = category.filter.split(';');
-                var found = _.find(splitted,function(fItem){
-                    return (item.name.toLowerCase().indexOf(fItem.toLowerCase()) !== -1);
-                });
-                return found !== undefined;
-        });
-        if (foundCategory !== undefined)
-        {
-            item.category = foundCategory.name;
-        }
-    },
-	calculateSum: function(props){
-        var self = this;
-        var summen = _.chain(props.data)
-                      .filter(function(item) {
-                        return self.filterChartMode(item);
-                     })
-                      .forEach(function(item){
-                        self.setMatchingCategory(item);
-                     })
-                      .groupBy('category')
-                      .map(function(value,key){
-                        return {
-                          'category' : key,
-                          'amount' :    _.chain(_.pluck(value,'value'))
-                                       .reduce(function(result, current) {
-                                                return result + (current);
-                                              }, 0)
-                                       .value()
-                        }
-                  }).value();
-
-        var chartData = [];
-        _.forEach(summen,function(item){
-            if (item !== undefined)
-            {
-                chartData.push({
-                    'value' : item.amount,
-                    'label' : item.category,
-										'color' :'#'+Math.floor(Math.random()*16777215).toString(16)
-                });
-            }
-        });
-        this.setState({ 'chartData' : chartData});
+	filterChartMode: function(item) {
+		return (this.props.type === 'e' && (item.value) > 0) ||
+		(this.props.type === 'a' && (item.value) < 0);
 	},
-    renderDemoPieIfNeeded: function (nextProps){
-        if (nextProps.data.length == 0)
-        {
-            var color = this.props.type === 'e' ? '#67BCDB' : '#E44424';
-            var highlight = this.props.type === 'e' ? '#67D9DC' : '#FB6749';
-            var data = [
-                        {
-                          value: 100,
-                          color: color,
-                          highlight: highlight,
-                          label: "Keine Daten"
-                        }
-                       ];
-            this.setState({'chartData' : data});
-        }
-    },
+	setMatchingCategory: function(item) {
+		var foundCategory = _.find(this.props.categories, function(category){
+			var splitted = category.filter.split(';');
+			var found = _.find(splitted,function(fItem){
+				return (item.name.toLowerCase().indexOf(fItem.toLowerCase()) !== -1);
+			});
+			return found !== undefined;
+		});
+		if (foundCategory !== undefined)
+		{
+			item.category = foundCategory.name;
+		}
+	},
+	calculateSum: function(props){
+		var self = this;
+		var summen = _.chain(props.data)
+		.filter(function(item) {
+			return self.filterChartMode(item);
+		})
+		.forEach(function(item){
+			self.setMatchingCategory(item);
+		})
+		.groupBy('category')
+		.map(function(value,key){
+			return {
+				'category' : key,
+				'amount' :    _.chain(_.pluck(value,'value'))
+				.reduce(function(result, current) {
+					return result + (current);
+				}, 0)
+				.value()
+			}
+		}).value();
+
+		var chartData = [];
+		_.forEach(summen,function(item){
+			if (item !== undefined)
+			{
+				chartData.push({
+					'value' : item.amount,
+					'label' : item.category,
+					'color' :'#'+Math.floor(Math.random()*16777215).toString(16)
+				});
+			}
+		});
+		this.setState({ 'chartData' : chartData});
+	},
+	renderDemoPieIfNeeded: function (nextProps){
+		if (nextProps.data.length == 0)
+		{
+			var color = this.props.type === 'e' ? '#67BCDB' : '#E44424';
+			var highlight = this.props.type === 'e' ? '#67D9DC' : '#FB6749';
+			var data = [
+			{
+				value: 100,
+				color: color,
+				highlight: highlight,
+				label: "Keine Daten"
+			}
+			];
+			this.setState({'chartData' : data});
+		}
+	},
 	componentWillReceiveProps: function(nextProps){
 		this.calculateSum(nextProps);
-        this.renderDemoPieIfNeeded(nextProps);
+		this.renderDemoPieIfNeeded(nextProps);
+		console.log('props rec');
 	},
 	render: function() {
-        var header = this.props.type === 'e' ? 'Einnahmen' : 'Ausgaben';
-        var legendItems = _.map(this.state.chartData,function(item){
-            var css = { 'backgroundColor' : item.color};
-            return (<li key={item.label}><Label  style={css}><Glyphicon glyph='tags' /> {item.label} ({item.value})</Label></li>);
-        });
-	  	return (
-            <Grid>
-                <Row>
-                    <Col xs={3} className="pie">
-                        <div>
-                            <h2>{header}</h2>
-                            <PieChart ref="pie" onClick={this.pieClicked} data={this.state.chartData} redraw />
-                        </div>
-                    </Col>
-                    <Col xs={3} className="pieCategories">
-                        <ul className="list-inline">
-                            {legendItems}
-                        </ul>
-                    </Col>
-                </Row>
-            </Grid>
+		var header = this.props.type === 'e' ? 'Einnahmen' : 'Ausgaben';
+		var legendItems = _.map(this.state.chartData,function(item){
+			var css = { 'backgroundColor' : item.color};
+			return (<li key={item.label}><Label  style={css}><Glyphicon glyph='tags' /> {item.label} ({item.value})</Label></li>);
+		});
+		var tableContent;
+
+		if (this.state.showTableContent)
+		{
+			tableContent = { visibility: 'visible'};
+		}
+		else {
+			tableContent = { visibility: 'collapse'};
+		}
+		var options = [ { animation : false } ];
+		return (
+			<Grid>
+				<Row>
+					<Col xs={3} className="pie">
+						<div>
+							<h2>{header}</h2>
+							<PieChart options={options} ref="pie" onClick={this.pieClicked} data={this.state.chartData} redraw />
+						</div>
+					</Col>
+					<Col xs={3} className="pieCategories">
+						<ul className="list-inline">
+							{legendItems}
+						</ul>
+					</Col>
+				</Row>
+				<Row>
+					<Col xs={3}>
+						<ChartTable positions={this.state.positions}/>
+					</Col>
+				</Row>
+			</Grid>
 		);
 	},
 	pieClicked : function(event){
 		var chart = this.refs.pie.getChart();
-		console.log('pie clicked',(chart.getSegmentsAtEvent(event)[0]).label);
+		var label = (chart.getSegmentsAtEvent(event)[0]).label;
+		var data = _.filter(this.props.data,function(item){
+			return item.category === label;
+		});
+
+		this.setState({'positions' : data});
 	}
 });
 

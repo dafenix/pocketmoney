@@ -55,6 +55,9 @@ var App = React.createClass({
           <CategoryChart type={'e'} categories={this.state.categories} data={this.state.positions}/>
           <CategoryChart type={'a'} categories={this.state.categories} data={this.state.positions}/>
         </Row>
+        <Row>
+
+        </Row>
       </Grid>);
   },
   fileChanged: function (){
