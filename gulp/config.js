@@ -7,6 +7,7 @@ module.exports = {
       root: dest,
       host: 'localhost',
       port: process.env.PORT,
+      
       livereload: {
         port: 35929
       }

@@ -1,20 +1,23 @@
-var React = require('react');
-var _ = require('underscore');
-var PieChart = require("react-chartjs").Pie;
-var Grid = require('react-bootstrap/Grid');
-var Row = require('react-bootstrap/Row');
-var Col = require('react-bootstrap/Col');
-var Label = require('react-bootstrap/Label');
-var Glyphicon = require('react-bootstrap/Glyphicon');
-var ChartTable = require('./ChartTable.jsx');
-var ReactBsTable = require("react-bootstrap-table");
-var BootstrapTable = ReactBsTable.BootstrapTable;
-var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
-var TableDataSet = ReactBsTable.TableDataSet;
-var Please = require('pleasejs');
+(function(module, require) {
+	
+	var React = require('react');
+	var _ = require('underscore');
+	var PieChart = require("react-chartjs").Pie;
+	var Grid = require('react-bootstrap/Grid');
+	var Row = require('react-bootstrap/Row');
+	var Col = require('react-bootstrap/Col');
+	var Label = require('react-bootstrap/Label');
+	var Glyphicon = require('react-bootstrap/Glyphicon');
+	var ChartTable = require('./ChartTable.jsx');
+	var ReactBsTable = require("react-bootstrap-table");
+	var BootstrapTable = ReactBsTable.BootstrapTable;
+	var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
+	var TableDataSet = ReactBsTable.TableDataSet;
+	var Please = require('pleasejs');
 
 var CategoryChart = React.createClass({
 	getInitialState: function() {
+		
 		return {
 			'chartData' : [{}],
 			'positions' : [],
@@ -22,6 +25,7 @@ var CategoryChart = React.createClass({
 		};
 	},
 	componentDidMount: function() {
+		this.calculateSum(this.props);
 	},
 	filterChartMode: function(item) {
 		return (this.props.type === 'e' && (item.value) > 0) ||
@@ -96,11 +100,6 @@ var CategoryChart = React.createClass({
 			this.setState({'chartData' : data});
 		}
 	},
-	componentWillReceiveProps: function(nextProps){
-		this.calculateSum(nextProps);
-		this.renderDemoPieIfNeeded(nextProps);
-		console.log('props recxx');
-	},
 	render: function() {
 		var header = this.props.type === 'e' ? 'Einnahmen' : 'Ausgaben';
 		var legendItems = _.map(this.state.chartData,function(item){
@@ -151,3 +150,5 @@ var CategoryChart = React.createClass({
 });
 
 module.exports = CategoryChart;
+
+}(module, require));
