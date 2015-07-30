@@ -19,7 +19,7 @@
         },
                 
         render: function() {
-            return this.renderCurrentRoute();
+            return (<div>{this.renderCurrentRoute()}</div>);
         },
 
         loadstore: function() {
