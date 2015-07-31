@@ -6,6 +6,7 @@ var _ = require('underscore');
 var Categorizer = require('../Categorizer.js');
 var Calculation = require('../Calculation.js')
 var Please = require('pleasejs');
+var Grid = require('react-bootstrap/Grid');
 
 var LineChart = React.createClass({
   getInitialState: function() {
@@ -64,13 +65,18 @@ var LineChart = React.createClass({
     this.setState({ LineChartData : lineChartData});
   },
   render: function() {
+    var options = { 'responsive' : true };
     return (
-      <Row>
-        <div>
-          <h2>Trend</h2>
-          <LineChartCtrl data={this.state.LineChartData} redraw></LineChartCtrl>
-        </div>
-      </Row>
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <div>
+              <h2>Trend</h2>
+              <LineChartCtrl data={this.state.LineChartData} redraw options={options}></LineChartCtrl>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 });

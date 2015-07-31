@@ -107,7 +107,7 @@ var CategoryChart = React.createClass({
 			return (<li key={item.label}><Label  style={css}><Glyphicon glyph='tags' /> {item.label} ({item.value})</Label></li>);
 		});
 		var tableContent;
-		var options = { 'animation' : false};
+		var options = { 'animation' : true, 'responsive' : true };
 		if (this.state.showTableContent)
 		{
 			tableContent = { visibility: 'visible'};
@@ -116,15 +116,15 @@ var CategoryChart = React.createClass({
 			tableContent = { visibility: 'collapse'};
 		}
 		return (
-			<Row>
+			<Grid>
 				<Row>
-					<Col xs={3} className="pie">
+					<Col xs={12} md={10} className="pie">
 						<div>
 							<h2>{header}</h2>
 							<PieChart ref="pie" onClick={this.pieClicked} data={this.state.chartData} redraw options={options} />
 						</div>
 					</Col>
-					<Col xs={3} className="pieCategories">
+					<Col xs={2} md={2} className="pieCategories">
 						<ul className="list-inline">
 							{legendItems}
 						</ul>
@@ -135,7 +135,7 @@ var CategoryChart = React.createClass({
 						<ChartTable positions={this.state.positions}/>
 					</Col>
 				</Row>
-			</Row>
+			</Grid>
 		);
 	},
 	pieClicked : function(event){
