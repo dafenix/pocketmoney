@@ -32,13 +32,13 @@
 		},
 		{
 			"Id" : "4",
-			"TransferDate" : "17.07.2015",
+			"TransferDate" : "17.08.2015",
 			"Ownname" : "Myname",
 			"Othername" : "gehalt2",
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "gehalt2",
-			"Amount" : "30,00"
+			"Amount" : "70,00"
 		}		,
 		{
 			"Id" : "5",
@@ -49,6 +49,36 @@
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "kindergeld",
 			"Amount" : "44,00"
+		},
+		{
+			"Id" : "6",
+			"TransferDate" : "12.01.2015",
+			"Ownname" : "Myname",
+			"Othername" : "kindergeld",
+			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
+			"BIC" : "GENODEF1CAL",
+			"Subject" : "kindergeld",
+			"Amount" : "11,00"
+		},
+		{
+			"Id" : "7",
+			"TransferDate" : "02.02.2015",
+			"Ownname" : "Myname 22",
+			"Othername" : "amazon",
+			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
+			"BIC" : "GENODEF1CAL",
+			"Subject" : "amazon",
+			"Amount" : "-150,00"
+		},
+		{
+			"Id" : "8",
+			"TransferDate" : "23.09.2015",
+			"Ownname" : "congstar mega",
+			"Othername" : "congstar",
+			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
+			"BIC" : "GENODEF1CAL",
+			"Subject" : "congstar",
+			"Amount" : "-60,00"
 		}
 	],
 	

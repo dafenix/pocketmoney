@@ -2,10 +2,10 @@
 (function(module, require) {
     var React = require('react');
     var RouterMixin = require('react-mini-router').RouterMixin;
-    
-    var LoadStore = require('./LoadStore.jsx');  
-    var PieCharts = require('./PieCharts.jsx');   
-    var DataTable = require('./DataTable.jsx');   
+
+    var LoadStore = require('./LoadStore.jsx');
+    var Charts = require('./Charts.jsx');
+    var DataTable = require('./DataTable.jsx');
 
     var AppRouter = React.createClass({
 
@@ -14,10 +14,10 @@
         routes: {
             '/' : 'loadstore',
             '/loadstore' : 'loadstore',
-            '/piecharts' : 'piecharts',
+            '/charts' : 'charts',
             '/datatable' : 'datatable'
         },
-                
+
         render: function() {
             return (<div>{this.renderCurrentRoute()}</div>);
         },
@@ -26,8 +26,8 @@
             return (<LoadStore/>);
         },
 
-        piecharts: function() {
-            return (<PieCharts/>);
+        charts: function() {
+            return (<Charts/>);
         },
 
         datatable: function() {

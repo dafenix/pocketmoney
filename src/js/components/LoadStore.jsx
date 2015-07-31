@@ -18,6 +18,7 @@
 
     onFileLoad: function(e){
       var storeJson = JSON.parse(e.target.result);
+      console.log('store',storeJson);
       Store.setRootStoreObject(storeJson);
     },
 
@@ -35,7 +36,7 @@
           </Col>    
         </Row>
         <br/>
-        <a href="piecharts">Charts</a>
+        <a href="charts">Charts</a>
         <br/>
         <a href="datatable">Table</a>
       </Grid>        

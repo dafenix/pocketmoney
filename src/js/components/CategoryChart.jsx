@@ -1,5 +1,5 @@
 (function(module, require) {
-	
+
 	var React = require('react');
 	var _ = require('underscore');
 	var PieChart = require("react-chartjs").Pie;
@@ -17,7 +17,7 @@
 
 var CategoryChart = React.createClass({
 	getInitialState: function() {
-		
+
 		return {
 			'chartData' : [{}],
 			'positions' : [],
@@ -116,7 +116,7 @@ var CategoryChart = React.createClass({
 			tableContent = { visibility: 'collapse'};
 		}
 		return (
-			<Grid>
+			<Row>
 				<Row>
 					<Col xs={3} className="pie">
 						<div>
@@ -135,7 +135,7 @@ var CategoryChart = React.createClass({
 						<ChartTable positions={this.state.positions}/>
 					</Col>
 				</Row>
-			</Grid>
+			</Row>
 		);
 	},
 	pieClicked : function(event){

@@ -8,7 +8,7 @@
   var Grid = require('react-bootstrap/Grid');
   var Row = require('react-bootstrap/Row');
   var Store = require('../Store.js');
-
+  var LineChart = require('./LineChart.jsx');
 function InZahl (Wert)
    {   // Erstellt von Ralf Pfeifer, www.ArsTechnica.de
        var PosPunkt = Wert.indexOf(".",0);
@@ -31,13 +31,14 @@ function InZahl (Wert)
        return parseFloat(Wert);
    }
 
-var PieCharts = React.createClass({
+var Charts = React.createClass({
   getInitialState: function() {
     var positions = _.map(Store.getDataItems(), function(item){
           return {
             'category' : 'no category',
             'name' : item.Subject,
-            'value' : InZahl(item.Amount)
+            'value' : InZahl(item.Amount),
+            'TransferDate': item.TransferDate
           }
       });
 
@@ -47,17 +48,18 @@ var PieCharts = React.createClass({
       'categories' : Store.getCategories()
     };
   },
-  
+
   render: function() {
-    return (<Grid>       
+    return (
               <Row>
                 <CategoryChart type={'e'} categories={this.state.categories} data={this.state.positions}/>
                 <CategoryChart type={'a'} categories={this.state.categories} data={this.state.positions}/>
-              </Row>        
-            </Grid>);
+                <LineChart categories={this.state.categories} data={this.state.positions}/>
+              </Row>
+            );
   }
 });
 
-module.exports = PieCharts;
+module.exports = Charts;
 
 }(module, require));
