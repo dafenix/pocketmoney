@@ -8,9 +8,11 @@
   var Store = require('../Store.js');
   var CsvParse = require('csv-parse');
   var _ = require('underscore');
+  var FilePicker = require('../FilePicker.js');
 
   var LoadStore = React.createClass({
-
+    componentDidMount: function() {
+    },
     fileChanged: function (){
       var file = this.refs.filectrl.getDOMNode().files[0];
       var reader = new FileReader();
@@ -29,42 +31,49 @@
           return;
         }
         CsvParse(e.target.result, {comment: '#', delimiter: ';'}, function(err, output){
-                  var store = { Data: [], Categories:[] };
-                  store.Categories = JSON.parse(categoryConfig).categories;
-                  var idx = 0;
-                  _.forEach(output,function(entry){
-                    store.Data.push({ Id: idx,
-                                 TransferDate: entry[0],
-                                 Ownname : entry[2],
-                           		 	 Othername: entry[2],
-                           		   IBAN : "",
-                           			 BIC : "",
-                           		   Subject : entry[2],
-                           			 Amount : entry[3]
-                                })
+          var store = { Data: [], Categories:[] };
+          store.Categories = JSON.parse(categoryConfig).categories;
+          var idx = 0;
+          _.forEach(output,function(entry){
+            store.Data.push({ Id: idx,
+              TransferDate: entry[0],
+              Ownname : entry[2],
+              Othername: entry[2],
+              IBAN : "",
+              BIC : "",
+              Subject : entry[2],
+              Amount : entry[3]
+            })
 
-                    idx++
-                  });
-                  Store.setRootStoreObject(store);
-                });
+            idx++
+          });
+          Store.setRootStoreObject(store);
+        });
       }
       if (fileExtension === "json"){
-        var storeJson = JSON.parse(e.target.result);
-        Store.setRootStoreObject(storeJson);
+        this.loadJson(e.target.result);
       }
     },
-
+    loadJson: function(data){
+      var storeJson = JSON.parse(data);
+      Store.setRootStoreObject(storeJson);
+    },
     render: function() {
       return (
-      <Grid>
-        <Row>
-          <h1>Choose the File with your Data!</h1>
+        <Grid>
+          <Row>
+            <h1>Choose the File with your Data!</h1>
+          </Row>
+          <Row>
+            <Col>
+              <span className="btn btn-primary btn-file">
+                Datei auswählen <input ref="filectrl" type="file" onChange={this.fileChanged} />
+            </span>
+          </Col>
         </Row>
         <Row>
           <Col>
-            <span className="btn btn-primary btn-file">
-                Datei auswählen <input ref="filectrl" type="file" onChange={this.fileChanged} />
-            </span>
+            <Btn ref="pick" onClick={this.handleDriveClicked} className="btn btn-primary btn-file">Google-Drive</Btn>
           </Col>
         </Row>
         <br/>
@@ -72,10 +81,39 @@
         <br/>
         <a href="datatable">Table</a>
       </Grid>
-      );
+    );
+  },
+  handleDriveClicked: function(){
+    var self = this;
+    var picker = new FilePicker({
+      apiKey: 'AIzaSyDVBhu-ngTcSBWyKncCWq6SzG_z_7AQoic',
+      clientId: '288329116655-hnplk7t54j5kvp42uls529q0ovt8sjto.apps.googleusercontent.com',
+      buttonEl: this.refs.pick.getDOMNode(),
+      onSelect: function(file) {
+        self.downloadFile(file, self.loadJson);
+      }
+    });
+    picker.open();
+  },
+  downloadFile: function(file, callback) {
+    if (file.downloadUrl) {
+      var accessToken = gapi.auth.getToken().access_token;
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', file.downloadUrl);
+      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr.onload = function() {
+        callback(xhr.responseText);
+      };
+      xhr.onerror = function() {
+        callback(null);
+      };
+      xhr.send();
+    } else {
+      callback(null);
     }
-  });
+  }
+});
 
-  module.exports = LoadStore;
+module.exports = LoadStore;
 
 }(module, require));
