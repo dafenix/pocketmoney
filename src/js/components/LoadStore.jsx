@@ -8,7 +8,7 @@
   var Store = require('../Store.js');
   var CsvParse = require('csv-parse');
   var _ = require('underscore');
-  var FilePicker = require('../FilePicker.js');
+  var FilePicker = require('../Filepicker.js');
 
   var LoadStore = React.createClass({
     componentDidMount: function() {
