@@ -6,6 +6,7 @@
     var LoadStore = require('./LoadStore.jsx');
     var Charts = require('./Charts.jsx');
     var DataTable = require('./DataTable.jsx');
+    var Importer = require('./Importer.jsx');
 
     var AppRouter = React.createClass({
 
@@ -15,7 +16,8 @@
             '/' : 'loadstore',
             '/loadstore' : 'loadstore',
             '/charts' : 'charts',
-            '/datatable' : 'datatable'
+            '/datatable' : 'datatable',
+            '/importer' : 'importer'
         },
 
         render: function() {
@@ -32,6 +34,10 @@
 
         datatable: function() {
             return (<DataTable/>);
+        },
+
+        importer: function() {
+            return (<Importer/>);
         },
 
         notFound: function(path) {

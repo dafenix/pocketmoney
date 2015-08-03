@@ -4,26 +4,37 @@
 
   var RootStoreObject = { Data : [] };
 
+  function guid() {    
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
+
+  function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+  }
+
   var Store = {
 
     setRootStoreObject: function(rootStoreObject) {
       RootStoreObject = rootStoreObject
     },
 
-    addDataItem: function(id, date, ownname, othername, iban, bic, subject, amount) {
+    addDataItem: function(dataItem) {
       
       var dataItem = {
-        Id : id,
-        TransferDate : date,
-        Ownname : ownname,
-        Othername : othername,
-        IBAN : iban,
-        BIC :  bic,
-        Subject : subject,
-        Amount : amount
+        Id : guid(),
+        TransferDate : dataItem.TransferDate,
+        Ownname : dataItem.Ownname,
+        Othername : dataItem.Othername,
+        IBAN : dataItem.IBAN,
+        BIC :  dataItem.BIC,
+        Subject : dataItem.Subject,
+        Amount : dataItem.Amount
       };
 
-      RootStoreObject.Data.add(dataItem);
+      RootStoreObject.Data.push(dataItem);
     },
 
     getDataItems: function() {
@@ -32,7 +43,7 @@
 
     getCategories: function() {
         return JQuery.extend(true, {}, RootStoreObject).Categories;
-      }
+    }
   };
 
   module.exports = Store;
