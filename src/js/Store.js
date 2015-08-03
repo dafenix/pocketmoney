@@ -3,28 +3,17 @@
   var JQuery = require('jquery');
 
   var RootStoreObject = { Data : [] };
-
-  function guid() {    
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
-
-  function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-  }
-
+  
   var Store = {
 
     setRootStoreObject: function(rootStoreObject) {
       RootStoreObject = rootStoreObject
-    },
+    },  
 
     addDataItem: function(dataItem) {
       
       var dataItem = {
-        Id : guid(),
+        Id : dataItem.Id,
         TransferDate : dataItem.TransferDate,
         Ownname : dataItem.Ownname,
         Othername : dataItem.Othername,
