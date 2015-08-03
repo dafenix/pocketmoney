@@ -18,6 +18,7 @@
   var _ = require('underscore');    
 
   var SpardaCsvImporter = require('../import/SpardaCsvImporter.jsx');
+  var RaibaCsvImporter = require('../import/RaibaCsvImporter.jsx');
 
   function guid() {    
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
@@ -43,7 +44,6 @@
     },
 
     importTypeChanged: function(e) {
-
       var selectedImportType = e.target.attributes['label'].nodeValue;
       this.setState({ 'importType' : selectedImportType});
     }, 
@@ -52,7 +52,19 @@
     },
    
     loadImportPreview: function(text){
-      SpardaCsvImporter.importData(text, this.loadImportPreviewFinished);     
+      
+      switch(this.state.importType) {
+          case 'Sparda':
+              SpardaCsvImporter.importData(text, this.loadImportPreviewFinished);  
+              break;
+          case 'Raiffeisen':
+              RaibaCsvImporter.importData(text, this.loadImportPreviewFinished);  
+              break;
+          default:
+              alert("ImportType not supported");
+               break;
+      }
+
     },
 
     setData: function(data){
