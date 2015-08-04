@@ -15,7 +15,6 @@
 	var TableDataSet = ReactBsTable.TableDataSet;
 	var Please = require('pleasejs');
 	var moment = require('moment');
-	var DatePicker = require('react-datepicker');
 	var Btn = require('react-bootstrap/Button');
 	var DateRangePicker = require('react-bootstrap-daterangepicker');
 
