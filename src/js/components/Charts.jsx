@@ -9,7 +9,8 @@
   var Row = require('react-bootstrap/Row');
   var Store = require('../Store.js');
   var LineChart = require('./LineChart.jsx');
-function InZahl (Wert)
+
+   function InZahl (Wert)
    {   // Erstellt von Ralf Pfeifer, www.ArsTechnica.de
        var PosPunkt = Wert.indexOf(".",0);
        var PosKomma = Wert.indexOf(",",0);
@@ -35,7 +36,7 @@ var Charts = React.createClass({
   getInitialState: function() {
     var positions = _.map(Store.getDataItems(), function(item){
           return {
-            'category' : 'no category',
+            'category' : item.Category,
             'name' : item.Subject,
             'value' : InZahl(item.Amount),
             'TransferDate': item.TransferDate

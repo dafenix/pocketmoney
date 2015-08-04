@@ -38,11 +38,11 @@
       dataItem.year = date.getFullYear();
     },
 
-    categoryAmountAggByMonth: function(categories, dataItems) {
+    categoryAmountAggByMonth: function(dataItems) {
       var self = this;
       var groups = _.chain(dataItems)
         .forEach(function(item) {
-          Categorizer.categorize(categories, item);
+          Categorizer.categorize(item);
           self.extendDateProperties(item);
         })
         .groupBy(function(item) {

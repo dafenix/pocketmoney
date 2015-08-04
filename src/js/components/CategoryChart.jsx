@@ -30,31 +30,15 @@ var CategoryChart = React.createClass({
 	filterChartMode: function(item) {
 		return (this.props.type === 'e' && (item.value) > 0) ||
 		(this.props.type === 'a' && (item.value) < 0);
-	},
-	setMatchingCategory: function(item) {
-		var foundCategory = _.find(this.props.categories, function(category){
-			var splitted = category.filter.split(';');
-			var found = _.find(splitted,function(fItem){
-				return (item.name.toLowerCase().indexOf(fItem.toLowerCase()) !== -1);
-			});
-			return found !== undefined;
-		});
-		if (foundCategory !== undefined)
-		{
-			item.category = foundCategory.name;
-		}
-	},
+	},	
 	calculateSum: function(props){
 		var self = this;
 		var summen = _.chain(props.data)
 		.filter(function(item) {
 			return self.filterChartMode(item);
 		})
-		.forEach(function(item){
-			self.setMatchingCategory(item);
-		})
 		.groupBy('category')
-		.map(function(value,key){
+		.map(function(value, key){
 			return {
 				'category' : key,
 				'amount' :    _.chain(_.pluck(value,'value'))
@@ -83,22 +67,6 @@ var CategoryChart = React.createClass({
 			}
 		});
 		this.setState({ 'chartData' : chartData});
-	},
-	renderDemoPieIfNeeded: function (nextProps){
-		if (nextProps.data.length == 0)
-		{
-			var color = this.props.type === 'e' ? '#67BCDB' : '#E44424';
-			var highlight = this.props.type === 'e' ? '#67D9DC' : '#FB6749';
-			var data = [
-			{
-				value: 100,
-				color: color,
-				highlight: highlight,
-				label: "Keine Daten"
-			}
-			];
-			this.setState({'chartData' : data});
-		}
 	},
 	render: function() {
 		var header = this.props.type === 'e' ? 'Einnahmen' : 'Ausgaben';

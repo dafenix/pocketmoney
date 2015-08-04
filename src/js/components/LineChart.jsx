@@ -3,7 +3,6 @@ var LineChartCtrl = require("react-chartjs").Line;
 var Row = require('react-bootstrap/Row');
 var Col = require('react-bootstrap/Col');
 var _ = require('underscore');
-var Categorizer = require('../Categorizer.js');
 var Calculation = require('../Calculation.js')
 var Please = require('pleasejs');
 var Grid = require('react-bootstrap/Grid');
@@ -28,7 +27,7 @@ var LineChart = React.createClass({
   },
   componentDidMount: function() {
     var self = this;
-    var data = Calculation.categoryAmountAggByMonth(this.props.categories,this.props.data);
+    var data = Calculation.categoryAmountAggByMonth(this.props.data);
     var data2 =  _.chain(data)
     .groupBy('category')
     .map(function(value, key) {

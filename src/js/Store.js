@@ -2,7 +2,7 @@
   
   var JQuery = require('jquery');
 
-  var RootStoreObject = { Data : [] };
+  var RootStoreObject = { Data : [], Categories: [] };
   
   var Store = {
 
@@ -20,7 +20,8 @@
         IBAN : dataItem.IBAN,
         BIC :  dataItem.BIC,
         Subject : dataItem.Subject,
-        Amount : dataItem.Amount
+        Amount : dataItem.Amount,
+        Category : dataItem.Category
       };
 
       RootStoreObject.Data.push(dataItem);

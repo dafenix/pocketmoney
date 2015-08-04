@@ -24,6 +24,7 @@
           <TableHeaderColumn hidden={true} isKey={true} dataField="Id">Id</TableHeaderColumn>
           <TableHeaderColumn dataField="TransferDate">TransferDate</TableHeaderColumn>
           <TableHeaderColumn dataField="Subject">Subject</TableHeaderColumn>
+          <TableHeaderColumn dataField="Category">Category</TableHeaderColumn>
           <TableHeaderColumn dataField="Amount">Amount</TableHeaderColumn>
         </BootstrapTable>     
       );

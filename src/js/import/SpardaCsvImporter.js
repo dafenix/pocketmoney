@@ -5,10 +5,8 @@
   var CsvParse = require('csv-parse');
 
   var SpardaCsvImporter = {
-    importData: function(text, importFinishedCallback) {      
-              textWithoutColumns = text.substring(text.indexOf("\n") + 1);
-
-              CsvParse(textWithoutColumns, {comment: '#', delimiter: ';'}, function(err, output){
+    importData: function(text, importFinishedCallback) {        
+              CsvParse(text, {comment: '#', delimiter: ';'}, function(err, output){
                 var data = []; 
                 _.forEach(output,function(entry){
                   data.push(

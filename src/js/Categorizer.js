@@ -2,9 +2,11 @@
 
   var JQuery = require('jquery');
   var _ = require('underscore');
+  var Store = require('./Store.js');
 
   var Categorizer = {
-    categorize: function(categories, item) {
+    categorize: function(item) {
+        var categories = Store.getCategories();
         var foundCategory = _.find(categories, function(category){
         var splitted = category.filter.split(';');
         var found = _.find(splitted,function(fItem){

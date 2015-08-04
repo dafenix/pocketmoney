@@ -17,19 +17,9 @@
   var Store = require('../Store.js');
   var _ = require('underscore');    
 
-  var SpardaCsvImporter = require('../import/SpardaCsvImporter.jsx');
-  var RaibaCsvImporter = require('../import/RaibaCsvImporter.jsx');
-
-  function guid() {    
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
-
-  function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-  }
+  var ImportFinalizer =  require('../import/ImportFinalizer.js');
+  var SpardaCsvImporter = require('../import/SpardaCsvImporter.js');
+  var RaibaCsvImporter = require('../import/RaibaCsvImporter.js');
 
   var dataToImport = [];
 
@@ -64,7 +54,6 @@
               alert("ImportType not supported");
                break;
       }
-
     },
 
     setData: function(data){
@@ -72,17 +61,18 @@
         this.state.dataToImport.setData(data);
     },
 
-    loadImportPreviewFinished: function(data){
+    loadImportPreviewFinished: function(data){      
 
-       _.forEach(data,function(dataEntry){
-          dataEntry.Id = guid();           
-      });
+      ImportFinalizer.finalize(data, this.loadImportPreviewFinalized);
+    },
+
+    loadImportPreviewFinalized: function(data){      
 
       this.setData(data);
       this.setState({'importDisabled' : false});   
     },
 
-    importPreviewData: function(){      
+    importData: function(){      
       _.forEach(dataToImport, function(dataEntry){
            Store.addDataItem(dataEntry);
       });     
@@ -135,7 +125,7 @@
           </Row>           
           <Row>
             <Col>
-              <Btn className="btn btn-primary btn-file" sub disabled={this.state.importDisabled} onClick={this.importPreviewData}>Import</Btn>
+              <Btn className="btn btn-primary btn-file" sub disabled={this.state.importDisabled} onClick={this.importData}>Import</Btn>
             </Col>
           </Row>
         </Grid>
