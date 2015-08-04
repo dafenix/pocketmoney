@@ -26,8 +26,8 @@
 				'chartData' : [{}],
 				'positions' : [],
 				'showTableContent' : false,
-				'fromDate' : moment().subtract(29, 'days'),
-				'endDate' : moment()
+				'fromDate' : moment().startOf('year'),
+				'endDate' : moment().endOf('year')
 			};
 		},
 		componentDidMount: function() {
@@ -121,6 +121,7 @@
 				tableContent = { visibility: 'collapse'};
 			}
 			var myranges = {
+				'This Year': [moment().startOf('year'), moment().endOf('year')],
 				'This Month': [moment().startOf('month'), moment().endOf('month')],
 				'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
 				'-02 Months': [moment().subtract(2, 'month').startOf('month'), moment().subtract(2, 'month').endOf('month')],
@@ -148,8 +149,7 @@
 						<Col xs={1} md={3}>
 							<div className="datetimefilter">
 								<h3>Time Range</h3>
-								<h4>papa402</h4>
-								<DateRangePicker ranges={myranges} onEvent={this.handleEvent}>
+								<DateRangePicker ranges={myranges} startDate={this.state.fromDate} endDate={this.state.endDate} onEvent={this.handleEvent}>
 									<Btn className="selected-date-range-btn" style={{width:'100%'}}>
 										<div className="pull-left"><Glyphicon glyph="calendar" /></div>
 										<div className="pull-right">
