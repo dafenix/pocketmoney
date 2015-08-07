@@ -7,6 +7,7 @@
     var Charts = require('./Charts.jsx');
     var DataTable = require('./DataTable.jsx');
     var Importer = require('./Importer.jsx');
+    var MainMenu = require('./MainMenu.jsx')
 
     var AppRouter = React.createClass({
 
@@ -25,19 +26,31 @@
         },
 
         loadstore: function() {
-            return (<LoadStore/>);
+          return (<div>
+                    <MainMenu/>
+                    <LoadStore/>
+                 </div>);
         },
 
         charts: function() {
-            return (<Charts/>);
+          return (<div>
+                    <MainMenu/>
+                    <Charts/>
+                 </div>);
         },
 
         datatable: function() {
-            return (<DataTable/>);
+          return (<div>
+                    <MainMenu/>
+                    <DataTable/>
+                 </div>);
         },
 
         importer: function() {
-            return (<Importer/>);
+          return (<div>
+                    <MainMenu/>
+                    <Importer/>
+                 </div>);
         },
 
         notFound: function(path) {
