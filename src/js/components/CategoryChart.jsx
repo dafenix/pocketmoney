@@ -35,7 +35,8 @@
 			return {
 				'chartData' : [{}],
 				'positions' : [],
-				'showTableContent' : false
+				'showTableContent' : false,
+				'lastCategoryClicked' : undefined
 			};
 		},
 		getfilteredDataByRange: function(data, range) {
@@ -66,7 +67,7 @@
 			var summen = _.chain(data)
 			.filter(function(item) {
 				return self.filterChartMode(item);
-			})			
+			})
 			.groupBy('Category')
 			.map(function(value,key){
 				return {
@@ -138,13 +139,22 @@
 		},
 		pieClicked : function(event){
 			var chart = this.refs.pie.getChart();
-			var label = (chart.getSegmentsAtEvent(event)[0]).label;
+			var segments = chart.getSegmentsAtEvent(event);
+			if (segments.length === 0){
+				return;
+			}
+
 			var filtered = this.getfilteredDataByRange(this.props.data, this.props.range);
+			var label = segments[0].label;
 			var data = _.filter(filtered,function(item){
 				return item.Category === label || (label === "undefined" && !item.Category);
 			});
 
-			this.setState({'positions' : data});
+			if (this.state.lastCategoryClicked !== undefined && this.state.lastCategoryClicked === label){
+				data = [];
+				label = undefined;
+			}
+			this.setState({'positions' : data, 'lastCategoryClicked' : label});
 		}
 	});
 
