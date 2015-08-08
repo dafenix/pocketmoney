@@ -91,11 +91,70 @@
 	],
 	
 	"Categories":[
-        {"name":"no category", "filter":"no category"},
-        {"name":"versandhäuser", "filter":"amazon;otto"}, 
-        {"name":"gehalt", "filter":"gehalt1;gehalt2"},
-        {"name":"einnahmen", "filter":"kindergeld"},
-        {"name":"handy", "filter":"e-plus;congstar"},
-        {"name":"essen", "filter":"rewe;aldi;lidl"}
+        {
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"amazon", 
+			"Category":"versandhäuser"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"otto", 
+			"Category":"versandhäuser"
+		},   
+		{	"Type":"AndValueCategorizer", 
+			"Category":"gehalt", 
+			"Categories" : [
+				{
+					"Type":"ContainsValueCategorizer", 
+					"Property":"Othername", 
+					"Value":"ge", 
+					"Category":"True"
+				}, 
+				{
+					"Type":"ContainsValueCategorizer", 
+					"Property":"Subject", 
+					"Value":"halt", 
+					"Category":"True"
+				}
+			]
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"kindergeld", 
+			"Category":"einnahmen"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"e-plus", 
+			"Category":"handy"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"congstar", 
+			"Category":"handy"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"rewe", 
+			"Category":"essen"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"aldi", 
+			"Category":"essen"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"lidl", 
+			"Category":"essen"
+		} 
     ]
 }

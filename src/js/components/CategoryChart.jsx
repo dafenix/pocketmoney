@@ -33,36 +33,20 @@
 			this.calculateSum(this.props.data);
 		},
 		filterChartMode: function(item) {
-			return (this.props.type === 'e' && (item.value) > 0) ||
-			(this.props.type === 'a' && (item.value) < 0);
-		},
-		setMatchingCategory: function(item) {
-			var foundCategory = _.find(this.props.categories, function(category){
-				var splitted = category.filter.split(';');
-				var found = _.find(splitted,function(fItem){
-					return (item.name.toLowerCase().indexOf(fItem.toLowerCase()) !== -1);
-				});
-				return found !== undefined;
-			});
-			if (foundCategory !== undefined)
-			{
-				item.category = foundCategory.name;
-			}
-		},
+			return (this.props.type === 'e' && (item.Amount) > 0) ||
+			(this.props.type === 'a' && (item.Amount) < 0);
+		},		
 		calculateSum: function(data){
 			var self = this;
 			var summen = _.chain(data)
 			.filter(function(item) {
 				return self.filterChartMode(item);
-			})
-			.forEach(function(item){
-				self.setMatchingCategory(item);
-			})
-			.groupBy('category')
-			.map(function(value,key){
+			})			
+			.groupBy('Category')
+			.map(function(value, key){
 				return {
 					'category' : key,
-					'amount' :    _.chain(_.pluck(value,'value'))
+					'amount' :    _.chain(_.pluck(value,'Amount'))
 					.reduce(function(result, current) {
 						return result + (current);
 					}, 0)
@@ -87,23 +71,7 @@
 				}
 			});
 			this.setState({ 'chartData' : chartData});
-		},
-		renderDemoPieIfNeeded: function (nextProps){
-			if (nextProps.data.length == 0)
-			{
-				var color = this.props.type === 'e' ? '#67BCDB' : '#E44424';
-				var highlight = this.props.type === 'e' ? '#67D9DC' : '#FB6749';
-				var data = [
-					{
-						value: 100,
-						color: color,
-						highlight: highlight,
-						label: "Keine Daten"
-					}
-				];
-				this.setState({'chartData' : data});
-			}
-		},
+		},		
 		render: function() {
 			var header = this.props.type === 'e' ? 'Einnahmen' : 'Ausgaben';
 			var legendItems = _.map(this.state.chartData,function(item){
@@ -175,7 +143,7 @@
 						</Col>
 					</Row>
 					<Row>
-						<Col xs={6}>
+						<Col xs={12}>
 							<ChartTable positions={this.state.positions}/>
 						</Col>
 					</Row>
@@ -185,8 +153,9 @@
 		pieClicked : function(event){
 			var chart = this.refs.pie.getChart();
 			var label = (chart.getSegmentsAtEvent(event)[0]).label;
-			var data = _.filter(this.props.data,function(item){
-				return item.category === label;
+			var filtered = this.filterDataByDateRange();	
+			var data = _.filter(filtered, function(item){
+				return item.Category === label || (label === "undefined" && !item.Category);
 			});
 
 			this.setState({'positions' : data});
@@ -203,6 +172,11 @@
 			this.dateRangeChanged();
 		},
 		dateRangeChanged: function(){
+			var filtered = this.filterDataByDateRange();			
+			this.calculateSum(filtered);
+			this.setState({'positions' : []});
+		},		
+		filterDataByDateRange: function(){
 			var self = this;
 			if (this.state.fromDate !== null && this.state.endDate !== null){
 				var filtered = _.filter(this.props.data,function(item){
@@ -211,10 +185,9 @@
 					var till = self.state.endDate;
 					return (transactionDate >= fromDate && transactionDate <= till)
 				});
-				this.calculateSum(filtered);
-				console.log('range changed',filtered);
+				return filtered;
 			}
-
+			return this.props.data;
 		},
 		germanStringToDate: function(inputString) {
 			var dateParts = inputString.split(".");
