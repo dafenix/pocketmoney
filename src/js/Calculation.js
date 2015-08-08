@@ -2,7 +2,7 @@
 
   var JQuery = require('jquery');
   var _ = require('underscore');
-  var Categorizer = require('./Categorizer.js');
+  var Categorizer = require('./categorizer/Categorizer.js');
 
   var Calculation = {
     germanStringToDate: function(inputString) {
@@ -41,25 +41,25 @@
     categoryAmountAggByMonth: function(dataItems) {
       var self = this;
       var groups = _.chain(dataItems)
-        .forEach(function(item) {
-          Categorizer.categorize(item);
+        .forEach(function(item) {          
           self.extendDateProperties(item);
         })
         .groupBy(function(item) {
-          return item.year + '#' + item.monthName + '#' + item.category;
+          return item.year + '#' + item.monthName + '#' + item.Category;
         })
         .map(function(group) {
           var first = group[0];
-          return {
+          var result = {
             year: first.year,
             month: first.monthName,
             sortIndex: first.year + first.monthIndex,
-            category: first.category,
-            amount: _.chain(_.pluck(group, 'value'))
+            category: first.Category,
+            amount: _.chain(_.pluck(group, 'Amount'))
               .reduce(function(result, current) {
                 return result + (current);
               }, 0).value()
-          }
+          };
+          return result;
         })
         .sortBy('sortIndex')
         .value();

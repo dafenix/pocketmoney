@@ -8,7 +8,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "congstar",
-			"Amount" : "-10,00",
+			"Amount" : -10.00,
 			"Category" : "handy"
 		},
 		{
@@ -19,7 +19,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "amazon",
-			"Amount" : "-50,00",
+			"Amount" : -50.00,
 			"Category" : "versandhäuser"
 		},
 		{
@@ -30,7 +30,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "gehalt1",
-			"Amount" : "20,00",
+			"Amount" : 20.00,
 			"Category" : "gehalt"
 		},
 		{
@@ -41,7 +41,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "gehalt2",
-			"Amount" : "70,00",
+			"Amount" : 70.00,
 			"Category" : "gehalt"
 		},
 		{
@@ -52,8 +52,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "kindergeld",
-			"Amount" : "44,00",
-			"Category" : ""
+			"Amount" : 44.00
 		},
 		{
 			"Id" : "6",
@@ -63,8 +62,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "kindergeld",
-			"Amount" : "11,00",
-			"Category" : ""
+			"Amount" : 11.00
 		},
 		{
 			"Id" : "7",
@@ -74,7 +72,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "amazon",
-			"Amount" : "-150,00",
+			"Amount" : -150.00,
 			"Category" : "versandhäuser"
 		},
 		{
@@ -85,17 +83,76 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "congstar",
-			"Amount" : "-60,00",
+			"Amount" : -60.00,
 			"Category" : "handy"
 		}
 	],
 	
 	"Categories":[
-        {"name":"no category", "filter":"no category"},
-        {"name":"versandhäuser", "filter":"amazon;otto"}, 
-        {"name":"gehalt", "filter":"gehalt1;gehalt2"},
-        {"name":"einnahmen", "filter":"kindergeld"},
-        {"name":"handy", "filter":"e-plus;congstar"},
-        {"name":"essen", "filter":"rewe;aldi;lidl"}
+        {
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"amazon", 
+			"Category":"versandhäuser"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"otto", 
+			"Category":"versandhäuser"
+		},   
+		{	"Type":"AndValueCategorizer", 
+			"Category":"gehalt", 
+			"Categories" : [
+				{
+					"Type":"ContainsValueCategorizer", 
+					"Property":"Othername", 
+					"Value":"ge", 
+					"Category":"True"
+				}, 
+				{
+					"Type":"ContainsValueCategorizer", 
+					"Property":"Subject", 
+					"Value":"halt", 
+					"Category":"True"
+				}
+			]
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"kindergeld", 
+			"Category":"einnahmen"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"e-plus", 
+			"Category":"handy"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"congstar", 
+			"Category":"handy"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"rewe", 
+			"Category":"essen"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"aldi", 
+			"Category":"essen"
+		}, 
+		{
+			"Type":"ContainsValueCategorizer", 
+			"Property":"Othername", 
+			"Value":"lidl", 
+			"Category":"essen"
+		} 
     ]
 }

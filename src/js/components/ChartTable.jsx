@@ -36,13 +36,14 @@
         tableContent = { visibility: 'collapse'};
       }
       return (
-        <div style={tableContent}>
-        <BootstrapTable  ref="table" data={this.state.tableDataSet} striped={true} hover={true} search={true}>
-          <TableHeaderColumn hidden={true} isKey={true} dataField="id">Id</TableHeaderColumn>
-          <TableHeaderColumn dataField="category">Category</TableHeaderColumn>
-          <TableHeaderColumn dataField="name">Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="value">Value</TableHeaderColumn>
-        </BootstrapTable>
+        <div style={tableContent}>       
+        <BootstrapTable ref="table" data={this.state.tableDataSet} striped={true} hover={true} search={true}>
+            <TableHeaderColumn hidden={true} isKey={true} dataField="Id">Id</TableHeaderColumn>
+            <TableHeaderColumn dataField="TransferDate">TransferDate</TableHeaderColumn>
+            <TableHeaderColumn dataField="Subject">Subject</TableHeaderColumn>
+            <TableHeaderColumn dataField="Category">Category</TableHeaderColumn>
+            <TableHeaderColumn dataField="Amount">Amount</TableHeaderColumn>
+          </BootstrapTable>
       </div>
       );
     }

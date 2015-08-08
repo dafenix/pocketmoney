@@ -107,27 +107,29 @@
             <Col>
               <DownloadTextFromGoogleDriveButton loadTextCallback={this.loadImportPreview}/>
             </Col>
-          </Row>        
+          </Row>  
+          <Row>
+            <Col>
+              <Btn className="btn btn-primary btn-file" sub disabled={this.state.importDisabled} onClick={this.importData}>Import</Btn>
+            </Col>
+          </Row>      
           <Row>
               <h2>Preview</h2>
           </Row> 
           <Row>
                <BootstrapTable ref="table" data={this.state.dataToImport} striped={true} hover={true} search={true}>                  
                 <TableHeaderColumn hidden={true} isKey={true} dataField="Id">Id</TableHeaderColumn>           
-                <TableHeaderColumn dataField="TransferDate">TransferDate</TableHeaderColumn>
-                <TableHeaderColumn dataField="Ownname">Ownname</TableHeaderColumn>
-                <TableHeaderColumn dataField="Othername">Othername</TableHeaderColumn>
-                <TableHeaderColumn dataField="IBAN">IBAN</TableHeaderColumn>
-                <TableHeaderColumn dataField="BIC">BIC</TableHeaderColumn>
-                <TableHeaderColumn dataField="Subject">Subject</TableHeaderColumn>
-                <TableHeaderColumn dataField="Amount">Amount</TableHeaderColumn>
+                <TableHeaderColumn className="wordwrap" dataField="TransferDate">TransferDate</TableHeaderColumn>
+                <TableHeaderColumn className="wordwrap" dataField="Ownname">Ownname</TableHeaderColumn>
+                <TableHeaderColumn className="wordwrap" dataField="Othername">Othername</TableHeaderColumn>
+                <TableHeaderColumn className="wordwrap" dataField="IBAN">IBAN</TableHeaderColumn>
+                <TableHeaderColumn className="wordwrap" dataField="BIC">BIC</TableHeaderColumn>
+                <TableHeaderColumn className="wordwrap" dataField="Subject">Subject</TableHeaderColumn>
+                <TableHeaderColumn className="wordwrap" dataField="Amount">Amount</TableHeaderColumn>                
+                <TableHeaderColumn className="wordwrap" dataField="Category">Category</TableHeaderColumn>
               </BootstrapTable>              
           </Row>           
-          <Row>
-            <Col>
-              <Btn className="btn btn-primary btn-file" sub disabled={this.state.importDisabled} onClick={this.importData}>Import</Btn>
-            </Col>
-          </Row>
+          
         </Grid>
     );
   }  
