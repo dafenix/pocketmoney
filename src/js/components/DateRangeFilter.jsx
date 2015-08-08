@@ -5,6 +5,7 @@ var Glyphicon = require('react-bootstrap/Glyphicon');
 var moment = require('moment');
 var Grid = require('react-bootstrap/Grid');
 var Row = require('react-bootstrap/Row');
+var Col = require('react-bootstrap/Col');
 
 var DateRangeFilter = React.createClass({
   getInitialState: function() {
@@ -40,20 +41,22 @@ var DateRangeFilter = React.createClass({
     return (
       <Grid>
         <Row>
-          <div>
-            <h3>Time Range</h3>
-            <DateRangePicker ranges={myranges} startDate={this.state.fromDate} endDate={this.state.endDate} onEvent={this.handleEvent}>
-              <Btn className="selected-date-range-btn" style={{width:'100%'}}>
-                <div className="pull-left"><Glyphicon glyph="calendar" /></div>
-                <div className="pull-right">
-                  <span>
-                    {label}
-                  </span>
-                  <span className="caret"></span>
-                </div>
-              </Btn>
-            </DateRangePicker>
-          </div>
+          <Col md={7} xs={12}>
+            <div>
+              <h3>Time Range</h3>
+              <DateRangePicker ranges={myranges} startDate={this.state.fromDate} endDate={this.state.endDate} onEvent={this.handleEvent}>
+                <Btn className="selected-date-range-btn" style={{width:'100%'}}>
+                  <div className="pull-left"><Glyphicon glyph="calendar" /></div>
+                  <div className="pull-right">
+                    <span>
+                      {label}
+                    </span>
+                    <span className="caret"></span>
+                  </div>
+                </Btn>
+              </DateRangePicker>
+            </div>
+          </Col>
         </Row>
       </Grid>
     );
