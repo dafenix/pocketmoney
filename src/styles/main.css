@@ -44,6 +44,7 @@ padding-right: 20px;
     cursor: inherit;
     display: block;
 }
+<<<<<<< HEAD
 
 .datetimefilter {
 	margin-top :150px;
@@ -60,3 +61,5 @@ padding-right: 20px;
    white-space: -o-pre-wrap;   /* Opera 7 */    
    word-wrap: break-word;      /* IE */
 }
+=======
+>>>>>>> 7047801f44284f8d6580f1558a2db6e8a85513c0
