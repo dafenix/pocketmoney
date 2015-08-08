@@ -9,6 +9,8 @@
   var Row = require('react-bootstrap/Row');
   var Store = require('../Store.js');
   var LineChart = require('./LineChart.jsx');
+  var DateRangeFilter = require('./DateRangeFilter.jsx')
+  var moment = require('moment');
 
    function InZahl (Wert)
    {   // Erstellt von Ralf Pfeifer, www.ArsTechnica.de
@@ -39,7 +41,11 @@ var Charts = React.createClass({
             'category' : item.Category,
             'name' : item.Subject,
             'value' : InZahl(item.Amount),
-            'TransferDate': item.TransferDate
+            'TransferDate': item.TransferDate,
+            'range': {
+              'fromDate' : moment().startOf('year'),
+              'endDate' : moment().endOf('year')
+              }
           }
       });
 
@@ -53,11 +59,15 @@ var Charts = React.createClass({
   render: function() {
     return (
               <Row>
-                <CategoryChart type={'e'} categories={this.state.categories} data={this.state.positions}/>
-                <CategoryChart type={'a'} categories={this.state.categories} data={this.state.positions}/>
+                <DateRangeFilter onDateRangeChanged={this.onDateRangeChanged} />
+                <CategoryChart type={'e'} categories={this.state.categories} data={this.state.positions} range={this.state.range}/>
+                <CategoryChart type={'a'} categories={this.state.categories} data={this.state.positions} range={this.state.range}/>
                 <LineChart categories={this.state.categories} data={this.state.positions}/>
               </Row>
             );
+  },
+  onDateRangeChanged: function(range){
+    this.setState({ range : range });
   }
 });
 
