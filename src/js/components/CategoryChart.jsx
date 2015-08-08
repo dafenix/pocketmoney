@@ -21,6 +21,7 @@
 	var CategoryChart = React.createClass({
 		componentWillReceiveProps: function(nextProps) {
 		  this.filterData(nextProps.data, nextProps.range);
+		  this.setState({'positions' : []});
 		},
 		getDefaultProps: function() {
 			return {
@@ -37,7 +38,7 @@
 				'showTableContent' : false
 			};
 		},
-		filterData: function(data, range) {
+		getfilteredDataByRange: function(data, range) {
 			if (range.fromDate !== null && range.endDate !== null){
 					var filtered = _.filter(data,function(item){
 					var transactionDate = moment(item.TransferDate,"DD.MM.YYYY");
@@ -45,43 +46,32 @@
 					var till = range.endDate;
 					return (transactionDate >= fromDate && transactionDate <= till)
 				});
-				this.calculateSum(filtered);
+				return filtered;
 			}
+			return data;
+		},
+		filterData: function(data, range) {
+			var filtered = this.getfilteredDataByRange(data, range);
+			this.calculateSum(filtered);
 		},
 		componentDidMount: function() {
 			this.filterData(this.props.data, this.props.range);
 		},
 		filterChartMode: function(item) {
-			return (this.props.type === 'e' && (item.value) > 0) ||
-			(this.props.type === 'a' && (item.value) < 0);
-		},
-		setMatchingCategory: function(item) {
-			var foundCategory = _.find(this.props.categories, function(category){
-				var splitted = category.filter.split(';');
-				var found = _.find(splitted,function(fItem){
-					return (item.name.toLowerCase().indexOf(fItem.toLowerCase()) !== -1);
-				});
-				return found !== undefined;
-			});
-			if (foundCategory !== undefined)
-			{
-				item.category = foundCategory.name;
-			}
+			return (this.props.type === 'e' && (item.Amount) > 0) ||
+			(this.props.type === 'a' && (item.Amount) < 0);
 		},
 		calculateSum: function(data){
 			var self = this;
 			var summen = _.chain(data)
 			.filter(function(item) {
 				return self.filterChartMode(item);
-			})
-			.forEach(function(item){
-				self.setMatchingCategory(item);
-			})
-			.groupBy('category')
+			})			
+			.groupBy('Category')
 			.map(function(value,key){
 				return {
 					'category' : key,
-					'amount' :    _.chain(_.pluck(value,'value'))
+					'amount' :    _.chain(_.pluck(value,'Amount'))
 					.reduce(function(result, current) {
 						return result + (current);
 					}, 0)
@@ -149,8 +139,9 @@
 		pieClicked : function(event){
 			var chart = this.refs.pie.getChart();
 			var label = (chart.getSegmentsAtEvent(event)[0]).label;
-			var data = _.filter(this.props.data,function(item){
-				return item.category === label;
+			var filtered = this.getfilteredDataByRange(this.props.data, this.props.range);
+			var data = _.filter(filtered,function(item){
+				return item.Category === label || (label === "undefined" && !item.Category);
 			});
 
 			this.setState({'positions' : data});
