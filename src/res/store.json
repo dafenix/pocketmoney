@@ -8,7 +8,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "congstar",
-			"Amount" : "-10,00",
+			"Amount" : -10.00,
 			"Category" : "handy"
 		},
 		{
@@ -19,7 +19,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "amazon",
-			"Amount" : "-50,00",
+			"Amount" : -50.00,
 			"Category" : "versandhäuser"
 		},
 		{
@@ -30,7 +30,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "gehalt1",
-			"Amount" : "20,00",
+			"Amount" : 20.00,
 			"Category" : "gehalt"
 		},
 		{
@@ -41,7 +41,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "gehalt2",
-			"Amount" : "70,00",
+			"Amount" : 70.00,
 			"Category" : "gehalt"
 		},
 		{
@@ -52,8 +52,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "kindergeld",
-			"Amount" : "44,00",
-			"Category" : ""
+			"Amount" : 44.00
 		},
 		{
 			"Id" : "6",
@@ -63,8 +62,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "kindergeld",
-			"Amount" : "11,00",
-			"Category" : ""
+			"Amount" : 11.00
 		},
 		{
 			"Id" : "7",
@@ -74,7 +72,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "amazon",
-			"Amount" : "-150,00",
+			"Amount" : -150.00,
 			"Category" : "versandhäuser"
 		},
 		{
@@ -85,7 +83,7 @@
 			"IBAN" : "DEXXXXXXXXX00000XXXXXX",
 			"BIC" : "GENODEF1CAL",
 			"Subject" : "congstar",
-			"Amount" : "-60,00",
+			"Amount" : -60.00,
 			"Category" : "handy"
 		}
 	],
