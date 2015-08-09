@@ -4,6 +4,10 @@
 
   var RootStoreObject = { Data : [], Categories: [] };
   
+  function getRootStoreObjectCopy() {
+    return JQuery.extend(true, {}, RootStoreObject);
+  }
+
   var Store = {
 
     setRootStoreObject: function(rootStoreObject) {
@@ -28,11 +32,16 @@
     },
 
     getDataItems: function() {
-        return JQuery.extend(true, {}, RootStoreObject).Data;
+        return getRootStoreObjectCopy().Data;
     },
 
     getCategories: function() {
-        return JQuery.extend(true, {}, RootStoreObject).Categories;
+        return getRootStoreObjectCopy().Categories;
+    },
+
+    getEncodedRootStoreObject: function() {
+        var rootStoreObject = getRootStoreObjectCopy();
+        return encodeURIComponent(JSON.stringify(rootStoreObject))
     }
   };
 

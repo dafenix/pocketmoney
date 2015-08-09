@@ -7,7 +7,7 @@
     render: function() {      
       return (        
          <span className="btn btn-primary btn-file">
-         Datei auswählen 
+         Select file 
          <input ref="filectrl" type="file" onChange={this.fileChanged} />
          </span>
       );
